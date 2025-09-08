@@ -12,6 +12,20 @@ public:
     TExpODE(const double alpha, const double ic);
     ~TExpODE();
 
-    double RHS(const double t, const double x) const;
-    double Solution(const double t, const double x) const;
+    double RHS(const double t, const double y) const;
+    double Solution(const double t) const;
+};
+
+/// @brief class: ODE with the linear derivative: dy/dt = a - b*y
+class TLinODE : public TSingleODE
+{
+public:
+    /// @brief 'Exponential' ODE constructor
+    /// @param alpha decay rate (stiffness parameter)
+    /// @param ic initial condition
+    TLinODE(const double a, const double b, const double ic);
+    ~TLinODE();
+
+    double RHS(const double t, const double y) const;
+    double Solution(const double t) const;
 };
