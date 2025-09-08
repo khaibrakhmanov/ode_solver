@@ -43,3 +43,5 @@
 /msvs_project/.vs/test_ode_solver
 /msvs_project/test_ode_solver/x64/Debug
 *.user
+*.depend
+*.layout
