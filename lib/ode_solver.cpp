@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <cmath>
 
-#include "ode.h"
+#include "ode_solver.h"
 
 /// @brief Allocate memory for a 1-dimensional array
 /// @param v array to allocate memory for
@@ -37,10 +37,10 @@ void TSwitcher::TurnOff()
 
 //------------------------------------------------
 
-FILE* TBaseODESolver::Get_file_ID()
-{
-	return pOdeLogFile;
-}
+//FILE* TBaseODESolver::Get_file_ID()
+//{
+//	return pOdeLogFile;
+//}
 
 void TBaseODESolver::AdjustSolution()
 {
@@ -60,7 +60,7 @@ TBaseODESolver::TBaseODESolver()
 
 void TBaseODESolver::Complete()
 {
-	CloseLog();
+//	CloseLog();
 };
 
 void TBaseODESolver::ActivateStepSizeControl()
@@ -98,36 +98,36 @@ bool TBaseODESolver::GetSolutionStatus()
 	return solutionFound;
 }
 
-void TBaseODESolver::CreateLog(char * fname)
-{
-	//fopen_s(&pOdeLogFile, fname, "w");
-	pOdeLogFile = fopen(fname, "w");
-
-	if (!pOdeLogFile)
-	{
-		std::cout << "unable to open log file for writing!" << std::endl;
-	};
-}
-
-void TBaseODESolver::UpdateLogSection(char * string)
-{
-	fprintf(Get_file_ID(), "%s\n\n", string);
-}
-
-void TBaseODESolver::CloseLog()
-{
-	fclose(Get_file_ID());
-}
-
-void TBaseODESolver::LogConvergenceParameters()
-{
-	fprintf(Get_file_ID(), "Convergence parameters at t = %5.2e):\n", GetTime());
-	fprintf(Get_file_ID(), "  dt     = %5.2e):\n", GetTimeStep());
-	fprintf(Get_file_ID(), "  eps    = %5.2e):\n", GetErrorMax());
-	fprintf(Get_file_ID(), "  N_iter = %5.2e):\n", GetIterationsNumber());
-
-	fprintf(Get_file_ID(), "-------------------------------------\n");
-};
+//void TBaseODESolver::CreateLog(char * fname)
+//{
+//	//fopen_s(&pOdeLogFile, fname, "w");
+//	pOdeLogFile = fopen(fname, "w");
+//
+//	if (!pOdeLogFile)
+//	{
+//		std::cout << "unable to open log file for writing!" << std::endl;
+//	};
+//}
+//
+//void TBaseODESolver::UpdateLogSection(char * string)
+//{
+//	fprintf(Get_file_ID(), "%s\n\n", string);
+//}
+//
+//void TBaseODESolver::CloseLog()
+//{
+//	fclose(Get_file_ID());
+//}
+//
+//void TBaseODESolver::LogConvergenceParameters()
+//{
+//	fprintf(Get_file_ID(), "Convergence parameters at t = %5.2e):\n", GetTime());
+//	fprintf(Get_file_ID(), "  dt     = %5.2e):\n", GetTimeStep());
+//	fprintf(Get_file_ID(), "  eps    = %5.2e):\n", GetErrorMax());
+//	fprintf(Get_file_ID(), "  N_iter = %5.2e):\n", GetIterationsNumber());
+//
+//	fprintf(Get_file_ID(), "-------------------------------------\n");
+//};
 
 void TBaseODESolver::SetTime(const double _time)
 {
@@ -294,7 +294,7 @@ bool TBaseODESolver::Solve()
 
 		if (GetIterationsNumber() == GetMaxIterationsNumber())
 		{
-			LogConvergenceParameters();
+//			LogConvergenceParameters();
 		};
 
 	};
@@ -641,7 +641,7 @@ void TBaseGearSolver::Step()
 
 	if (GetIterationsNumber() == GetMaxIterationsNumber())
 	{
-		LogConvergenceParameters();
+//		LogConvergenceParameters();
 	};
 
 	for (size_t i_sol = 0; i_sol < GetVariablesNumber(); i_sol++)

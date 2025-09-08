@@ -1,20 +1,30 @@
 #ifndef ODE_INCLUDED
 #define ODE_INCLUDED
 
-// one-dimensional double vector
+#include <vector>
+
+/// @brief user type: one-dimensional vector of real values
 typedef std::vector<double> TArray;
-// two-dimensional double vector
+
+/// @brief @brief user type: two-dimensional vector of real values
 typedef std::vector<TArray> TArray2D;
 
+/// @brief class: switcher between states 'on/off'
 class TSwitcher
 {
 private:
+	/// @brief switcher value
 	bool value;
 public:
 	TSwitcher();
 
+	/// @brief turn on the switcher
 	void TurnOn();
+	/// @brief tirn off the switcher
 	void TurnOff();
+
+	/// @brief Is the switcher on?
+	/// @return switcher status (true: on, false: off)
 	bool Active();
 };
 
@@ -58,12 +68,12 @@ protected:
 	double tol;
 
 
-	//------------- log -----------------
-	// Log-file ID
-	FILE* pOdeLogFile;
-	/* returns ID of the log file */
-	FILE* Get_file_ID();
-	//-----------------------------------
+//	//------------- log -----------------
+//	// Log-file ID
+//	FILE* pOdeLogFile;
+//	/* returns ID of the log file */
+//	FILE* Get_file_ID();
+//	//-----------------------------------
 
 
 	void AdjustSolution();
@@ -112,8 +122,8 @@ public:
 	//void ReadInitialVector(const double);
 	void CheckSize(const size_t _size);
 	double GetSolution(const size_t);
-	
-	
+
+
 	/* returns error for solution with given index */
 	double GetError(const size_t);
 	void ComputeError();
@@ -135,16 +145,16 @@ public:
 	bool GetSolutionStatus();
 
 
-	//--------- log ------------------
-	
-	/* create text file for the errors, messages and warnings reports */
-	void CreateLog(char *fname);
-	/* write title of the current section to the log file */
-	void UpdateLogSection(char *string);
-	/* close log file */
-	void CloseLog();
-	void LogConvergenceParameters();
-	//--------------------------------
+//	//--------- log ------------------
+//
+//	/* create text file for the errors, messages and warnings reports */
+//	void CreateLog(char *fname);
+//	/* write title of the current section to the log file */
+//	void UpdateLogSection(char *string);
+//	/* close log file */
+//	void CloseLog();
+//	void LogConvergenceParameters();
+//	//--------------------------------
 
 };
 
