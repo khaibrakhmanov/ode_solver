@@ -45,3 +45,4 @@
 *.user
 *.depend
 *.layout
+/msvs_project/test_ode_solver/x64/Release
