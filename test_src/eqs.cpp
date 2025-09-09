@@ -45,3 +45,28 @@ double TLinODE::Solution(const double t) const
 
     return GetParameter("a") / GetParameter("b") * (1.0 - std::exp(-t / tau));
 }
+
+// -------------------------------------------------------------
+
+TQuadODE::TQuadODE(const double a, const double b, const double ic)
+{
+    this->ic = ic;
+    this->SetParameter("a", a);
+    this->SetParameter("b", b);
+}
+
+TQuadODE::~TQuadODE()
+{
+}
+
+double TQuadODE::RHS(const double t, const double y) const
+{
+    return GetParameter("a") - GetParameter("b") * std::pow(y, 2.0);
+}
+
+double TQuadODE::Solution(const double t) const
+{
+    auto tau = 0.5 / std::sqrt(GetParameter("a") * GetParameter("b"));
+
+    return std::sqrt(GetParameter("a") / GetParameter("b")) * (1.0 - std::exp(-t / tau)) / (1.0 + std::exp(-t / tau));
+}

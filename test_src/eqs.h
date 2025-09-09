@@ -21,10 +21,26 @@ class TLinODE : public TSingleODE
 {
 public:
     /// @brief 'Exponential' ODE constructor
-    /// @param alpha decay rate (stiffness parameter)
-    /// @param ic initial condition
+    /// @param a
+    /// @param b
+    /// @param ic
     TLinODE(const double a, const double b, const double ic);
     ~TLinODE();
+
+    double RHS(const double t, const double y) const;
+    double Solution(const double t) const;
+};
+
+/// @brief class: ODE with the quadratic derivative: dy/dt = a - b*y^2
+class TQuadODE : public TSingleODE
+{
+public:
+    /// @brief 'Quadratic' ODE constructor
+    /// @param a
+    /// @param b
+    /// @param ic
+    TQuadODE(const double a, const double b, const double ic);
+    ~TQuadODE();
 
     double RHS(const double t, const double y) const;
     double Solution(const double t) const;
