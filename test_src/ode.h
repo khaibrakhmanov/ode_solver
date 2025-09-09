@@ -46,8 +46,7 @@ public:
 
     /// @brief Analytical solution of the ODE
     /// @param t - time (dependent variable)
-    /// @param y - independent variable
     /// @return y(t)
-    virtual double Solution(const double t, const double y) const = 0;
+    virtual double Solution(const double t) const = 0;
 
 };
