@@ -24,3 +24,28 @@ public:
     
     void UserCheck() {};
 };
+
+
+/// @brief class: Runge-Kutta solver for a single ODE
+class TRungeKuttaSolverSystem : public TBaseRungeKuttaSolver
+{
+private:
+    /// @brief ODEs to be solved (to be initialised)
+    TODEs* odes;
+
+public:
+    TRungeKuttaSolverSystem(/* args */);
+    ~TRungeKuttaSolverSystem();
+
+    /// @brief Import initialised ODE into the solver
+    /// @param ode - single ODE to be solved
+    void ImportODEs(TODEs* ode);
+
+    /// @brief Calculate the RK-coefficients
+    /// @param v0 - vector of the inital values of the independent varable
+    /// @param dt - time step
+    /// @param t - time
+    void CalcCoefficients(const TArray v0, const double dt, const double t);
+
+    void UserCheck() {};
+};

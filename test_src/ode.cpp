@@ -29,3 +29,38 @@ TSingleODE::~TSingleODE()
 {
     
 }
+
+TODEs::TODEs()
+{
+}
+
+TODEs::~TODEs()
+{
+}
+
+void TODEs::AddRHS(const PFunction fun)
+{
+    rhs.push_back(fun);
+    //rhs.at(i) = fun;
+}
+
+void TODEs::AddSolution(const PFunction1 sol)
+{
+    solution.push_back(sol);
+    //solution.at(i) = fun;
+}
+
+void TODEs::AddIC(const double val)
+{
+    ic.push_back(val);
+}
+
+TVectorFunction* TODEs::GetRHSPtr()
+{
+    return &rhs;
+}
+
+TVectorFunction* TODEs::GetSolution()
+{
+    return &solution;
+}

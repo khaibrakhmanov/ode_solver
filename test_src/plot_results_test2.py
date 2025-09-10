@@ -31,6 +31,7 @@ plt.rcParams.update({'legend.fontsize':fsize})
 data = np.loadtxt("../msvs_project/data.dat")
 t = data[:, 0]
 q = data[:, 1]
+q_an = data[:, 2]
 
 inch2cm = 2.54
 fig_width_cm = 11
@@ -45,13 +46,14 @@ axs.set_xlabel(r'$r$'+u' [au]', size=fsize)
 axs.set_ylabel(r'$T$ ' + u'[K]', size=fsize)
 axs.plot(t, q, 'o-', linewidth=lw, markersize=ms, label=u'num')
 
-def qa(r):
-    return np.exp(-1000*r)
+# def qa(r):
+#     return np.exp(-1000*r)
+# ts=np.linspace(0, 0.1, 2000)#10**logts
+# axs.plot(ts, qa(ts), '--', linewidth=lw, markersize=ms, label=u'an')
 
-ts=np.linspace(0, 0.1, 2000)#10**logts
+axs.plot(t, q_an, '--', linewidth=lw, markersize=ms, label=u'an')
 
-axs.plot(ts, qa(ts), '--', linewidth=lw, markersize=ms, label=u'an')
-axs.set_ylim(1e-45, 1.1)
+# axs.set_ylim(1e-45, 1.1)
 axs.legend(loc='best')
 
 fig.show()
