@@ -42,7 +42,7 @@ private:
 
 protected:
 	// order of aproximation
-	size_t order;
+	std::size_t order;
 	TSwitcher richardsonExtrapolation;
 
 	// solution vestors
@@ -55,10 +55,10 @@ protected:
 	TArray errorVector;
 	TArray absoluteErrorVector;
 
-	size_t variablesNumber;
+	std::size_t variablesNumber;
 	// current number of iterations
-	size_t reachedIteration;
-	size_t maxIterationsNumber;
+	std::size_t reachedIteration;
+	std::size_t maxIterationsNumber;
 	// maximal error among the errors for each component of the solution vector
 	double maximalError;
 
@@ -83,8 +83,8 @@ public:
 
 	void Complete();
 
-	virtual size_t GetOrder() = 0;
-	virtual void SetOrder(const size_t) = 0;
+	virtual std::size_t GetOrder() = 0;
+	virtual void SetOrder(const std::size_t) = 0;
 
 	bool Solve();
 
@@ -109,8 +109,8 @@ public:
 
 	void SetTolerance(const double);
 	double GetTolerance();
-	size_t GetIterationsNumber();
-	size_t GetMaxIterationsNumber();
+	std::size_t GetIterationsNumber();
+	std::size_t GetMaxIterationsNumber();
 
 	/* increase step by factor 2 */
 	void DoubleStep();
@@ -118,22 +118,22 @@ public:
 	void HalveStep();
 	void UpdateStep(const double);
 
-	void ReadInitialVector(const TArray, const size_t vsize);
+	void ReadInitialVector(const TArray, const std::size_t vsize);
 	//void ReadInitialVector(const double);
-	void CheckSize(const size_t _size);
-	double GetSolution(const size_t);
+	void CheckSize(const std::size_t _size);
+	double GetSolution(const std::size_t);
 
 
 	/* returns error for solution with given index */
-	double GetError(const size_t);
+	double GetError(const std::size_t);
 	void ComputeError();
 	void SetErrorMax(const double err_max);
 	double GetErrorMax();
 
 	virtual void UserCheck() = 0;
 
-	size_t GetVariablesNumber();
-	void SetVariablesNumber(const size_t);
+	std::size_t GetVariablesNumber();
+	void SetVariablesNumber(const std::size_t);
 
 	double GetMinStep();
 	void SetMinStep(const double);
@@ -165,14 +165,14 @@ private:
 public:
 	TBaseEulerSolver();
 
-	virtual double rhs(const size_t _isol, const double t, const TArray y) = 0;
+	virtual double rhs(const std::size_t _isol, const double t, const TArray y) = 0;
 
 	void Step(); //with h
 	void Step2(){};// with h/2 + h/2
 
 	void AllocateCoefficients(){};
-	size_t GetOrder(){ return 0; };
-	void SetOrder(const size_t){};
+	std::size_t GetOrder(){ return 0; };
+	void SetOrder(const std::size_t){};
 };
 
 class TBasicRungeKuttaSolver : public TBaseODESolver
@@ -180,17 +180,25 @@ class TBasicRungeKuttaSolver : public TBaseODESolver
 protected:
 	//size_t order;
 	TArray2D coeff;
+	/// y1 = y0 + 0.5 * C0
+	TArray y1;
+	/// y2 = y1 + 0.5 * C1
+	TArray y2;
+	/// y3 = y2 + 0.5 * C2
+	TArray y3;
+
+	void CalcIntemediateVariables(const TArray y0);
 
 public:
 	TBasicRungeKuttaSolver();
 
-	virtual void CalcCoefficients(const TArray v0, const double _dt, const double _time) = 0;
+	virtual void CalcCoefficients(const TArray y0, const double _dt, const double _time) = 0;
 
 	virtual void Step() = 0; //with h
 	virtual void Step2() = 0;// with h/2 + h/2
 
-	double GetC(const size_t i, const size_t j);
-	void SetC(const size_t i, const size_t j, const double arg);
+	double GetC(const std::size_t i, const std::size_t j);
+	void SetC(const std::size_t i, const std::size_t j, const double arg);
 
 	/// <summary>
 	/// returns pointer to the array of a scheme coefficients
@@ -200,8 +208,8 @@ public:
 
 	void AllocateCoefficients();
 
-	size_t GetOrder();
-	void SetOrder(const size_t);
+	std::size_t GetOrder();
+	void SetOrder(const std::size_t);
 };
 
 class TBaseRungeKuttaSolver : public TBasicRungeKuttaSolver
@@ -209,7 +217,7 @@ class TBaseRungeKuttaSolver : public TBasicRungeKuttaSolver
 public:
 	TBaseRungeKuttaSolver();
 
-	virtual void CalcCoefficients(const TArray v0, const double _dt, const double _time) = 0;
+	virtual void CalcCoefficients(const TArray y0, const double _dt, const double _time) = 0;
 
 	void Step(); //with h
 	void Step2();// with h/2 + h/2
@@ -226,7 +234,7 @@ protected:
 public:
 	TBaseRungeKuttaFehlberg45Solver();
 
-	virtual void CalcCoefficients(const TArray v0, const double _dt, const double _time) = 0;
+	virtual void CalcCoefficients(const TArray y0, const double _dt, const double _time) = 0;
 
 	void Step(); //with h
 	void Step2();// with h/2 + h/2
@@ -248,24 +256,24 @@ private:
 public:
 	TBaseGearSolver();
 
-	virtual double rhs(const size_t _isol, const double t, const TArray u) = 0;
+	virtual double rhs(const std::size_t _isol, const double t, const TArray u) = 0;
 
 	void AllocateCoefficients();
-	void ReadStartingPoints(const size_t i_sol, const double _u0, const double _u1, const double _u2, const double _u3, const double _u4, const double _u5);
-	void ReadStartingPoints(const size_t i_sol, const double _u0, const double _u1, const double _u2, const double _u3);
-	void ReadStartingPoints(const size_t i_sol, const double _u0, const double _u1);
+	void ReadStartingPoints(const std::size_t i_sol, const double _u0, const double _u1, const double _u2, const double _u3, const double _u4, const double _u5);
+	void ReadStartingPoints(const std::size_t i_sol, const double _u0, const double _u1, const double _u2, const double _u3);
+	void ReadStartingPoints(const std::size_t i_sol, const double _u0, const double _u1);
 	void ReadStartingPoints(const TArray2D u_in);
-	void ReadGuess(const size_t i_sol, const double u_g);
+	void ReadGuess(const std::size_t i_sol, const double u_g);
 	void UpdateStartingPoints(const TArray u);
 
-	double GetExplicitPart(const size_t i_sol);
-	double GetPhi(const size_t i_sol, const TArray u);
+	double GetExplicitPart(const std::size_t i_sol);
+	double GetPhi(const std::size_t i_sol, const TArray u);
 
 	void Step();
 
 	void Step2(){ ; };
-	void SetOrder(const size_t);
-	size_t GetOrder();
+	void SetOrder(const std::size_t);
+	std::size_t GetOrder();
 	//size_t GetIterationsNumber(const size_t i_sol);
 };
 

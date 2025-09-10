@@ -17,11 +17,11 @@ public:
     void ImportODE(TSingleODE *ode);
 
     /// @brief Calculate the RK-coefficients
-    /// @param v0 - vector of the inital values of the independent varable
+    /// @param y0 - vector of the initial values of the independent varables
     /// @param dt - time step
     /// @param t - time
-    void CalcCoefficients(const TArray v0, const double dt, const double t);
-    
+    void CalcCoefficients(const TArray y0, const double dt, const double t);
+
     void UserCheck() {};
 };
 
@@ -42,10 +42,10 @@ public:
     void ImportODEs(TODEs* ode);
 
     /// @brief Calculate the RK-coefficients
-    /// @param v0 - vector of the inital values of the independent varable
+    /// @param y0 - vector of the inital values of the independent varable
     /// @param dt - time step
     /// @param t - time
-    void CalcCoefficients(const TArray v0, const double dt, const double t);
+    void CalcCoefficients(const TArray y0, const double dt, const double t);
 
     void UserCheck() {};
 };

@@ -27,7 +27,7 @@ TSingleODE::TSingleODE()
 
 TSingleODE::~TSingleODE()
 {
-    
+
 }
 
 TODEs::TODEs()
@@ -60,7 +60,7 @@ TVectorFunction* TODEs::GetRHSPtr()
     return &rhs;
 }
 
-TVectorFunction* TODEs::GetSolution()
+TVectorFunction1* TODEs::GetSolution()
 {
     return &solution;
 }

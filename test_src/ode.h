@@ -75,6 +75,6 @@ public:
     void AddIC(const double val);
 
     TVectorFunction* GetRHSPtr();
-    TVectorFunction* GetSolution();
+    TVectorFunction1* GetSolution();
 
 };

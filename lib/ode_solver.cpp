@@ -380,6 +380,16 @@ void TBasicRungeKuttaSolver::SetOrder(const size_t arg)
 	order = arg;
 };
 
+void TBasicRungeKuttaSolver::CalcIntemediateVariables(const TArray y0)
+{
+    for(std::size_t i = 0; i < GetVariablesNumber(); i++)
+    {
+        y1[i] = y0[i] + 0.5 * dt * GetC(0, i);
+        y2[i] = y0[i] + 0.5 * dt * GetC(1, i);
+        y3[i] = y0[i] + dt * GetC(2, i);
+    }
+}
+
 //------------- Ordinary RK solver----------------------
 TBaseRungeKuttaSolver::TBaseRungeKuttaSolver()
 {

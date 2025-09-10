@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <cmath>
 #include "solver.h"
 #include "eqs.h"
 
@@ -36,8 +37,8 @@ int main(int argc, char* argv[])
 	TExpODE eq1(1000.0, y0);
 	TLinODE eq2(6.031, 19.74, y0);
 	TQuadODE eq3(0.026, 4.695e-12, y0);
-	
-	
+
+
 	TODEs eqs;
 	PFunction ode1 = f1;
 	PFunction ode2 = f2;
@@ -142,12 +143,12 @@ double f2(double t, std::vector<double> y)
 
 double sol1(double t)
 {
-	double b = std::sqrt(4.0 * alpha * alpha - 1.0);
-	return std::exp(-0.5 * t) * ((1.0 - 2.0 * alpha) * std::sin(0.5 * b * t) / b + std::cos(0.5 * b * t));
+	double b = sqrt(4.0 * alpha * alpha - 1.0);
+	return exp(-0.5 * t) * ((1.0 - 2.0 * alpha) * sin(0.5 * b * t) / b + cos(0.5 * b * t));
 };
 
 double sol2(double t)
 {
-	double b = std::sqrt(4.0 * alpha * alpha - 1.0);
-	return std::exp(-0.5 * t) * ((2.0 * alpha - 1.0) * std::sin(0.5 * b * t) / b + std::cos(0.5 * b * t));
+	double b = sqrt(4.0 * alpha * alpha - 1.0);
+	return exp(-0.5 * t) * ((2.0 * alpha - 1.0) * sin(0.5 * b * t) / b + cos(0.5 * b * t));
 };
