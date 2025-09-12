@@ -38,16 +38,14 @@ TODEs::~TODEs()
 {
 }
 
-void TODEs::AddRHS(const PFunction fun)
+void TODEs::AddRHS(const PFunctionVectArg fun)
 {
     rhs.push_back(fun);
-    //rhs.at(i) = fun;
 }
 
-void TODEs::AddSolution(const PFunction1 sol)
+void TODEs::AddSolution(const PFunction sol)
 {
     solution.push_back(sol);
-    //solution.at(i) = fun;
 }
 
 void TODEs::AddIC(const double val)
@@ -55,12 +53,12 @@ void TODEs::AddIC(const double val)
     ic.push_back(val);
 }
 
-TVectorFunction* TODEs::GetRHSPtr()
+TVectorFunctionVectArg* TODEs::GetRHSPtr()
 {
     return &rhs;
 }
 
-TVectorFunction1* TODEs::GetSolution()
+TVectorFunction* TODEs::GetSolution()
 {
     return &solution;
 }

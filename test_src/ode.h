@@ -51,11 +51,15 @@ public:
 
 };
 
-typedef double (*PFunction1)(double);
-typedef double (*PFunction)(double, std::vector<double>);
-//typedef TFunction* PFunction;
+/// @brief Pointer to a function of one real argument
+typedef double (*PFunction)(double);
+/// @brief vector of pointers to functions each depending on one real argument
 typedef std::vector<PFunction> TVectorFunction;
-typedef std::vector<PFunction1> TVectorFunction1;
+
+/// @brief Pointer to a function of one real and one vector arguments
+typedef double (*PFunctionVectArg)(double, std::vector<double>);
+/// @brief vector of pointers to functions each depending on real and one vector arguments
+typedef std::vector<PFunctionVectArg> TVectorFunctionVectArg;
 
 /// @brief class: system of ODEs
 class TODEs : public TBasicODE
@@ -63,18 +67,18 @@ class TODEs : public TBasicODE
 protected:
 
     std::vector<double> ic;
-    TVectorFunction rhs;
-    TVectorFunction1 solution;
+    TVectorFunctionVectArg rhs;
+    TVectorFunction solution;
 
 public:
     TODEs(/* args */);
     ~TODEs();
 
-    void AddRHS(const PFunction fun);
-    void AddSolution(const PFunction1 sol);
+    void AddRHS(const PFunctionVectArg fun);
+    void AddSolution(const PFunction sol);
     void AddIC(const double val);
 
-    TVectorFunction* GetRHSPtr();
-    TVectorFunction1* GetSolution();
+    TVectorFunctionVectArg* GetRHSPtr();
+    TVectorFunction* GetSolution();
 
 };
