@@ -26,31 +26,20 @@ int main(int argc, char* argv[])
 	// argv[2] -> alpha, i.e. parameter of the equation dy/dt = -alpha*dt
 	// argv[3] -> dt, i.e. (initial) time step
 
-	std::cout << "You have entered " << argc << " arguments:" << std::endl;
-	for (size_t i = 0; i < argc; i++)
-		std::cout << argv[i] << std::endl;
+//	std::cout << "You have entered " << argc << " arguments:" << std::endl;
+//	for (size_t i = 0; i < argc; i++)
+//		std::cout << argv[i] << std::endl;
 
 	std::cout << "Press Enter to start a simulation" << std::endl;
 	std::cin.get();
+
+	// ------- TEST FOR A SINGLE EQUATION SOLVER ----------------------------
 
 	double y0 = 0.0;
 	TExpODE eq1(1000.0, y0);
 	TLinODE eq2(6.031, 19.74, y0);
 	TQuadODE eq3(0.026, 4.695e-12, y0);
 
-
-	TODEs eqs;
-	PFunction ode1 = f1;
-	PFunction ode2 = f2;
-	//PFunction ode1_sol = sol1;
-
-	eqs.AddRHS(ode1);
-	eqs.AddIC(1.0);
-	eqs.AddSolution(&sol1);
-
-	eqs.AddRHS(ode2);
-	eqs.AddIC(1.0);
-	eqs.AddSolution(&sol2);
 
 	/// time of the simulation stop
 	const auto t_stop = 3e8;
@@ -67,7 +56,6 @@ int main(int argc, char* argv[])
 	solver.AllocateSolution();
 	solver.AllocateCoefficients();
 	sol.resize(1);
-
 	solver.ImportODE(&eq3);
 
 	/// time step count
@@ -114,6 +102,81 @@ int main(int argc, char* argv[])
 
 		i_t++;
 	} while (t <= t_stop);
+
+
+	// ------- TEST FOR A SYSTEM EQUATIONS SOLVER ----------------------------
+
+//	TODEs eqs;
+//	PFunctionVectArg rhs1 = f1;
+//	PFunctionVectArg rhs2 = f2;
+//
+//	eqs.AddRHS(rhs1);
+//	eqs.AddIC(1.0);
+//	eqs.AddSolution(&sol1);
+//
+//	eqs.AddRHS(rhs2);
+//	eqs.AddIC(1.0);
+//	eqs.AddSolution(&sol2);
+//
+//    TRungeKuttaSolverSystem solverSys;
+//	std::vector<double> solSys;
+//	size_t solSys_size = 2;
+//	solverSys.ActivateStepSizeControl();
+//	solverSys.SetVariablesNumber(solSys_size);
+//	solverSys.SetOrder(4);
+//	solverSys.SetTolerance(1e-4);
+//	solverSys.SetMaxStep(1e-2 * t_stop);
+//	solverSys.SetMinStep(1e-4 * t_stop);
+//	solverSys.AllocateSolution();
+//	solverSys.AllocateCoefficients();
+//	solSys.resize(solSys_size);
+//	solverSys.ImportODE(&eqs);
+//
+//	/// time step count
+//	auto i_t = 1;
+//	/// current time
+//	auto t = 0.0;
+//	sol[0] = y0;
+//	auto an_sol = y0;
+//	/// current time step
+//	auto dt = 1e-4 * t_stop;
+//	solver.SetTimeStep(dt);
+//
+//	bool solutionFound = true;
+//	auto savePeriod = 1;
+//	OpenOutputDataFile();
+//
+//	do
+//	{
+//		solver.ReadInitialVector(sol, sol_size);
+//		solutionFound = solver.Solve();
+//		if (!solutionFound)
+//		{
+//			printf("Warning! Solution was not found. Exiting.\n");
+//			break;
+//		}
+//		dt = solver.GetTimeStep();
+//		solver.UpdateStep(dt);
+//
+//		t += dt;
+//		solver.SetTime(t);
+//
+//		sol[0] = solver.GetSolution(0);
+//		an_sol = eq3.Solution(t);
+//
+//		if (i_t % 1 == 100)
+//		{
+//			printf("time = %5.2e [t0], dt = %5.2e [t0]\n", t, dt);
+//			printf("  x  = %5.2e [v0]\n", sol[0]);
+//		};
+//
+//		/// save current state
+//		if ((i_t % savePeriod) == 0)
+//			SaveCurrentData(t, sol[0], an_sol);
+//
+//		i_t++;
+//	} while (t <= t_stop);
+
 
 	return 0;
 }
