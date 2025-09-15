@@ -124,16 +124,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\lib\ode_solver.cpp" />
+    <ClCompile Include="..\test_src\ctest.cpp" />
     <ClCompile Include="..\test_src\eqs.cpp" />
     <ClCompile Include="..\test_src\main.cpp" />
     <ClCompile Include="..\test_src\ode.cpp" />
     <ClCompile Include="..\test_src\solver.cpp" />
+    <ClCompile Include="..\test_src\test1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\ode_solver.h" />
+    <ClInclude Include="..\test_src\ctest.h" />
     <ClInclude Include="..\test_src\eqs.h" />
     <ClInclude Include="..\test_src\ode.h" />
     <ClInclude Include="..\test_src\solver.h" />
+    <ClInclude Include="..\test_src\test1.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
