@@ -1,3 +1,4 @@
+#pragma once
 #include "../lib/ode_solver.h"
 #include "eqs.h"
 

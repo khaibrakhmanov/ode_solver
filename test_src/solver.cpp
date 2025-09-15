@@ -15,7 +15,7 @@ void TRungeKuttaSolver::ImportODE(TSingleODE *ode)
 
 void TRungeKuttaSolver::CalcCoefficients(const TArray y0, const double dt, const double t)
 {
-    CalcIntemediateVariables(y0);
+    //CalcIntemediateVariables(y0);
 
     TArray2D* coeffs = GetCoefficientsPtr();
 
@@ -47,20 +47,38 @@ void TRungeKuttaSolverSystem::CalcCoefficients(const TArray y0, const double dt,
     auto N = y0.size();
     auto rhs = odes->GetRHSPtr();
 
-    auto tmp_v = y0;
+    //auto y1 = y0;
 
+
+    //(*coeffs)[0][0] = ode->RHS(t, y0[0]);
+    //(*coeffs)[1][0] = ode->RHS(t + 0.5 * dt, y0[0] + 0.5 * dt * GetC(0, 0));
+    //(*coeffs)[2][0] = ode->RHS(t + 0.5 * dt, y0[0] + 0.5 * dt * GetC(1, 0));
+    //(*coeffs)[3][0] = ode->RHS(t + dt, y0[0] + dt * GetC(2, 0));
+
+    y1.clear();
     for (size_t i = 0; i < N; i++)
     {
         (*coeffs)[0][i] = rhs->at(i)(t, y0);
         y1.push_back(y0[i] + 0.5 * dt * GetC(0, i));
+    }
 
-        (*coeffs)[1][i] = rhs->at(i)(t, y1);
+    y2.clear();
+    for (size_t i = 0; i < N; i++)
+    {
+        (*coeffs)[1][i] = rhs->at(i)(t + 0.5 * dt, y1);
         y2.push_back(y0[i] + 0.5 * dt * GetC(1, i));
+    }
 
-        (*coeffs)[2][i] = rhs->at(i)(t, y2);
+    y3.clear();
+    for (size_t i = 0; i < N; i++)
+    {
+        (*coeffs)[2][i] = rhs->at(i)(t + 0.5 * dt, y2);
         y3.push_back(y0[i] + dt * GetC(2, i));
+    }
 
-        (*coeffs)[3][i] = rhs->at(i)(t, y3);
+    for (size_t i = 0; i < N; i++)
+    {
+        (*coeffs)[3][i] = rhs->at(i)(t + dt, y3);
     }
 
 

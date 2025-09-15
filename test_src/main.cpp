@@ -3,6 +3,7 @@
 #include <cmath>
 #include "solver.h"
 #include "eqs.h"
+#include "test1.h"
 
 /// @brief Name of the file to save the simulation results
 std::ofstream outfile;
@@ -31,80 +32,84 @@ int main(int argc, char* argv[])
 //		std::cout << argv[i] << std::endl;
 
 	std::cout << "Press Enter to start a simulation" << std::endl;
-	std::cin.get();
+	//std::cin.get();
 
-	// ------- TEST FOR A SINGLE EQUATION SOLVER ----------------------------
+	//// ------- TEST FOR A SINGLE EQUATION SOLVER ----------------------------
 
-	double y0 = 0.0;
-	TExpODE eq1(1000.0, y0);
-	TLinODE eq2(6.031, 19.74, y0);
-	TQuadODE eq3(0.026, 4.695e-12, y0);
+	//double y0 = 1.0;
+	//TExpODE eq1(1.0, y0);
+	////TLinODE eq2(6.031, 19.74, y0);
+	////TQuadODE eq3(0.026, 4.695e-12, y0);
 
 
-	/// time of the simulation stop
-	const auto t_stop = 3e8;
+	///// time of the simulation stop
+	//const auto t_stop = 100.0;
 
-	TRungeKuttaSolver solver;
-	std::vector<double> sol;
-	size_t sol_size = 1;
-	solver.ActivateStepSizeControl();
-	solver.SetVariablesNumber(1);
-	solver.SetOrder(4);
-	solver.SetTolerance(1e-4);
-	solver.SetMaxStep(1e-2 * t_stop);
-	solver.SetMinStep(1e-4 * t_stop);
-	solver.AllocateSolution();
-	solver.AllocateCoefficients();
-	sol.resize(1);
-	solver.ImportODE(&eq3);
+	//TRungeKuttaSolver solver;
+	//std::vector<double> sol;
+	//size_t sol_size = 1;
+	//solver.ActivateStepSizeControl();
+	//solver.SetVariablesNumber(1);
+	//solver.SetOrder(4);
+	//solver.SetTolerance(1e-4);
+	//solver.SetMaxStep(1e-2);
+	//solver.SetMinStep(1e-4);
+	//solver.AllocateSolution();
+	//solver.AllocateCoefficients();
+	//sol.resize(1);
+	//solver.ImportODE(&eq1);
 
-	/// time step count
-	auto i_t = 1;
-	/// current time
-	auto t = 0.0;
-	sol[0] = y0;
-	auto an_sol = y0;
-	/// current time step
-	auto dt = 1e-4 * t_stop;
-	solver.SetTimeStep(dt);
+	///// time step count
+	//auto i_t = 1;
+	///// current time
+	//auto t = 0.0;
+	//sol[0] = y0;
+	//auto an_sol = y0;
+	///// current time step
+	//auto dt = 1e-4 * t_stop;
+	//solver.SetTimeStep(dt);
 
-	bool solutionFound = true;
-	auto savePeriod = 1;
-	OpenOutputDataFile();
+	//bool solutionFound = true;
+	//auto savePeriod = 1;
+	//OpenOutputDataFile();
 
-	do
-	{
-		solver.ReadInitialVector(sol, sol_size);
-		solutionFound = solver.Solve();
-		if (!solutionFound)
-		{
-			printf("Warning! Solution was not found. Exiting.\n");
-			break;
-		}
-		dt = solver.GetTimeStep();
-		solver.UpdateStep(dt);
+	//do
+	//{
+	//	solver.ReadInitialVector(sol, sol_size);
+	//	solutionFound = solver.Solve();
+	//	if (!solutionFound)
+	//	{
+	//		printf("Warning! Solution was not found. Exiting.\n");
+	//		break;
+	//	}
+	//	dt = solver.GetTimeStep();
+	//	solver.UpdateStep(dt);
 
-		t += dt;
-		solver.SetTime(t);
+	//	t += dt;
+	//	solver.SetTime(t);
 
-		sol[0] = solver.GetSolution(0);
-		an_sol = eq3.Solution(t);
+	//	sol[0] = solver.GetSolution(0);
+	//	an_sol = eq1.Solution(t);
 
-		if (i_t % 1 == 100)
-		{
-			printf("time = %5.2e [t0], dt = %5.2e [t0]\n", t, dt);
-			printf("  x  = %5.2e [v0]\n", sol[0]);
-		};
+	//	if (i_t % 1 == 100)
+	//	{
+	//		printf("time = %5.2e [t0], dt = %5.2e [t0]\n", t, dt);
+	//		printf("  x  = %5.2e [v0]\n", sol[0]);
+	//	};
 
-		/// save current state
-		if ((i_t % savePeriod) == 0)
-			SaveCurrentData(t, sol[0], an_sol);
+	//	/// save current state
+	//	if ((i_t % savePeriod) == 0)
+	//		SaveCurrentData(t, sol[0], an_sol);
 
-		i_t++;
-	} while (t <= t_stop);
+	//	i_t++;
+	//} while (t <= t_stop);
 
 
 	// ------- TEST FOR A SYSTEM EQUATIONS SOLVER ----------------------------
+
+	CTest1 test1;
+
+	test1.Run();
 
 //	TODEs eqs;
 //	PFunctionVectArg rhs1 = f1;
