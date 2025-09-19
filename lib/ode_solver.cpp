@@ -181,7 +181,8 @@ void TBaseODESolver::ComputeError()
 	for (size_t i_sol = 0; i_sol < GetVariablesNumber(); i_sol++)
 	{
 		//absoluteErrorVector[i_sol] = (sol2[i_sol] - sol[i_sol]) / (pow(2.0, GetOrder()) - 1.0);
-		errorVector[i_sol] = fabs((sol2[i_sol] - sol[i_sol]) / std::max(sol[i_sol], sol2[i_sol]));
+		//errorVector[i_sol] = fabs((sol2[i_sol] - sol[i_sol]) / std::max(sol[i_sol], sol2[i_sol]));
+		errorVector[i_sol] = fabs((sol2[i_sol] - sol[i_sol]) / sol[i_sol]);
 		absoluteErrorVector[i_sol] = (sol2[i_sol] - sol[i_sol]);
 	};
 #endif
