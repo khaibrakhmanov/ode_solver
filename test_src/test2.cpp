@@ -12,6 +12,15 @@ namespace test2
 	double alpha = 1.0;
 }
 
+CTest2::CTest2()
+{
+	name = "test2";
+}
+
+CTest2::~CTest2()
+{
+}
+
 void CTest2::SetEqs()
 {
 	using namespace test2;

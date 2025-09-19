@@ -79,7 +79,7 @@ void CTest::Solve()
 
 void CTest::OpenResultsFile()
 {
-	out_file.open("data.dat", std::ofstream::out);
+	out_file.open(name + "_data.dat", std::ofstream::out);
 	if (!out_file.is_open()) {
 		throw std::runtime_error("Could not open output data file!");
 	}

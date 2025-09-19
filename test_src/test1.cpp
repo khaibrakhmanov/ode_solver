@@ -9,6 +9,15 @@ namespace test1
 	double alpha = 1.0;
 }
 
+CTest1::CTest1()
+{
+	name = "test1";
+}
+
+CTest1::~CTest1()
+{
+}
+
 void CTest1::SetEqs()
 {
 	using namespace test1;

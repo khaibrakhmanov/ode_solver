@@ -2,6 +2,7 @@
 #include "eqs.h"
 #include "solver.h"
 #include <fstream>
+#include <string>
 
 class CTest
 {
@@ -12,6 +13,9 @@ public:
 	void Run();
 
 protected:
+	/// @brief test name
+	std::string name;
+
 	TODEs ode;
 	TRungeKuttaSolverSystem solver;
 	std::vector<double> sol;
