@@ -9,7 +9,7 @@ namespace test2
 	double exact_sol_2(double t);
 	double f0_1 = 1.0;
 	double f0_2 = 1.0;
-	double alpha = 1.0;
+	double alpha = 1000.0;
 }
 
 CTest2::CTest2()
@@ -79,5 +79,5 @@ double test2::exact_sol_1(double t)
 
 double test2::exact_sol_2(double t)
 {
-	return f0_2 * exp(t);
+	return f0_2 * exp(-t);
 };

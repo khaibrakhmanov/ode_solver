@@ -87,8 +87,9 @@ void CTest::OpenResultsFile()
 
 void CTest::SaveResults()
 {
+	out_file << t << " ";
 	for (size_t i_sol = 0; i_sol < eqs_number; i_sol++)
-		out_file << t << " " << sol.at(i_sol) << " ";
+		out_file << sol.at(i_sol) << " ";
 
 	out_file << std::endl;
 }

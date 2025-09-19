@@ -4,6 +4,7 @@
 #include "solver.h"
 #include "eqs.h"
 #include "test1.h"
+#include "test2.h"
 
 /// @brief Name of the file to save the simulation results
 std::ofstream outfile;
@@ -107,9 +108,15 @@ int main(int argc, char* argv[])
 
 	// ------- TEST FOR A SYSTEM EQUATIONS SOLVER ----------------------------
 
+	std::cout << "Running test 1 ..." << std::endl;
 	CTest1 test1;
-
 	test1.Run();
+	std::cout << "... Done!" << std::endl;
+
+	std::cout << "Running test 2 ..." << std::endl;
+	CTest2 test2;
+	test2.Run();
+	std::cout << "... Done!" << std::endl;
 
 //	TODEs eqs;
 //	PFunctionVectArg rhs1 = f1;
