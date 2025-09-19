@@ -7,6 +7,7 @@
 #include "test2.h"
 #include "test3.h"
 #include "test4.h"
+#include "test5.h"
 
 /// @brief Name of the file to save the simulation results
 std::ofstream outfile;
@@ -128,6 +129,11 @@ int main(int argc, char* argv[])
 	std::cout << "Running test 4 ..." << std::endl;
 	CTest4 test4;
 	test4.Run();
+	std::cout << "... Done!" << std::endl;
+
+	std::cout << "Running test 5 ..." << std::endl;
+	CTest5 test5;
+	test5.Run();
 	std::cout << "... Done!" << std::endl;
 
 //	TODEs eqs;
