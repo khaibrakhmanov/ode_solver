@@ -39,6 +39,9 @@
     <ClCompile Include="..\test_src\test2.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="..\test_src\test3.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\ode_solver.h">
@@ -60,6 +63,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="..\test_src\test2.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\test_src\test3.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
