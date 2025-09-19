@@ -38,13 +38,14 @@ void CTest1::SetParams()
 	// equation params
 
 	alpha = 1.0;
+	auto tau = 1 / alpha;
 
 	// solver params
 
 	tol = 1e-4;
-	dt = 1e-4;
-	dt_min = 1e-4;
-	dt_max = 1e-2;
+	dt = 1e-4 * tau;
+	dt_min = 1e-6 * tau;
+	dt_max = 5e-1 * tau;
 
 	// test params
 	ic.push_back(f0);

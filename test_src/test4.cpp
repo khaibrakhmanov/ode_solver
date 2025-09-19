@@ -5,9 +5,9 @@ namespace test4
 {
 	double dydt(double t, std::vector<double> y);
 	double exact_sol(double t);
-	double f0 = 0.0;
-	double a = 6.031;
-	double b = 19.74;
+	auto f0 = 0.0;
+	auto a = 6.031;
+	auto b = 19.74;
 }
 
 CTest4::CTest4()
@@ -40,13 +40,14 @@ void CTest4::SetParams()
 
 	a = 6.031;
 	b = 19.74;
+	auto tau = 1 / b;
 
 	// solver params
 
 	tol = 1e-4;
-	dt = 1e-4;
-	dt_min = 1e-4;
-	dt_max = 1e-2;
+	dt = 1e-4 * tau;
+	dt_min = 1e-6 * tau;
+	dt_max = 1e-1 * tau;
 
 	// test params
 	ic.push_back(f0);

@@ -47,14 +47,16 @@ void CTest2::SetParams()
 
 	// equation params
 
+	alpha = 1000.0;
 	ode.SetParameter("alpha", alpha);
 
 	// solver params
+	auto tau = 1 / alpha;
 
 	tol = 1e-4;
-	dt = 1e-4;
-	dt_min = 1e-4;
-	dt_max = 1e-2;
+	dt = 1e-4 * tau;
+	dt_min = 1e-6 * tau;
+	dt_max = 1 * tau;
 
 	// test params
 	ic.push_back(f0_1);

@@ -1,4 +1,6 @@
 #include "ctest.h"
+#include <iomanip>
+#include <iostream>
 
 CTest::CTest()
 {
@@ -85,9 +87,17 @@ void CTest::OpenResultsFile()
 
 void CTest::SaveResults()
 {
-	out_file << t << " ";
+	out_file.setf(std::ios::scientific);
+	out_file.width(10);
+	out_file.precision(5);
+
+	out_file << t;
 	for (size_t i_sol = 0; i_sol < eqs_number; i_sol++)
-		out_file << sol.at(i_sol) << " ";
+	{
+		//out_file << sol.at(i_sol) << " ";
+		out_file << " ";
+		out_file << sol.at(i_sol) << " " << solver.GetTimeStep() << " " << solver.GetError(i_sol) << " " << solver.GetIterationsNumber();
+	}
 
 	out_file << std::endl;
 }

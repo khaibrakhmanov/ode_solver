@@ -7,9 +7,10 @@ namespace test3
 	double dydt_2(double t, std::vector<double> y);
 	double exact_sol_1(double t);
 	double exact_sol_2(double t);
-	double f0_1 = 1.0;
-	double f0_2 = 1.0;
-	double alpha = 1000.0;
+	auto f0_1 = 1.0;
+	auto f0_2 = 1.0;
+	auto alpha = 1000.0;
+	auto b = sqrt(4.0 * alpha * alpha - 1.0);
 }
 
 CTest3::CTest3()
@@ -47,14 +48,17 @@ void CTest3::SetParams()
 
 	// equation params
 
+	alpha = 1000.0;
+	b = sqrt(4.0 * alpha * alpha - 1.0);
+	auto tau = 2 / b;
 	ode.SetParameter("alpha", alpha);
 
 	// solver params
 
 	tol = 1e-4;
-	dt = 1e-4;
-	dt_min = 1e-4;
-	dt_max = 1e-2;
+	dt = 1e-4 * tau;
+	dt_min = 1e-6 * tau;
+	dt_max = 1e-1 * tau;
 
 	// test params
 	ic.push_back(f0_1);
@@ -74,12 +78,12 @@ double test3::dydt_2(double t, std::vector<double> y)
 
 double test3::exact_sol_1(double t)
 {
-	double b = sqrt(4.0 * alpha * alpha - 1.0);
+	auto b = sqrt(4.0 * alpha * alpha - 1.0);
 	return exp(-0.5 * t) * ((1.0 - 2.0 * alpha) * sin(0.5 * b * t) / b + cos(0.5 * b * t));
 };
 
 double test3::exact_sol_2(double t)
 {
-	double b = sqrt(4.0 * alpha * alpha - 1.0);
+	auto b = sqrt(4.0 * alpha * alpha - 1.0);
 	return exp(-0.5 * t) * ((2.0 * alpha - 1.0) * sin(0.5 * b * t) / b + cos(0.5 * b * t));
 };
