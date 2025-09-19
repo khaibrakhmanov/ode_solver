@@ -1,5 +1,4 @@
 #pragma once
-#include "eqs.h"
 #include "solver.h"
 #include <fstream>
 #include <string>
@@ -39,5 +38,4 @@ protected:
 	void Solve();
 	void OpenResultsFile();
 	void SaveResults();
-
 };

@@ -26,31 +26,6 @@ public:
     double GetParameter(const std::string name) const;
 };
 
-/// @brief class: single ODE
-class TSingleODE : public TBasicODE
-{
-protected:
-
-    /// @brief initial condition
-    double ic;
-
-public:
-    TSingleODE(/* args */);
-    ~TSingleODE();
-
-    /// @brief Right-hand-side of the equation (value of the derivative)
-    /// @param t - time (dependent variable)
-    /// @param y - independent variable
-    /// @return dy/dt
-    virtual double RHS(const double t, const double y) const = 0;
-
-    /// @brief Analytical solution of the ODE
-    /// @param t - time (dependent variable)
-    /// @return y(t)
-    virtual double Solution(const double t) const = 0;
-
-};
-
 /// @brief Pointer to a function of one real argument
 typedef double (*PFunction)(double);
 /// @brief vector of pointers to functions each depending on one real argument

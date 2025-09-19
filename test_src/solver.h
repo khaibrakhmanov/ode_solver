@@ -1,33 +1,8 @@
 #pragma once
 #include "../lib/ode_solver.h"
-#include "eqs.h"
+#include "ode.h"
 
-/// @brief class: Runge-Kutta solver for a single ODE
-class TRungeKuttaSolver : public TBaseRungeKuttaSolver
-{
-private:
-    /// @brief ODE to be solved (to be initialised)
-    TSingleODE *ode;
-
-public:
-    TRungeKuttaSolver(/* args */);
-    ~TRungeKuttaSolver();
-
-    /// @brief Import initialised ODE into the solver
-    /// @param ode - single ODE to be solved
-    void ImportODE(TSingleODE *ode);
-
-    /// @brief Calculate the RK-coefficients
-    /// @param y0 - vector of the initial values of the independent varables
-    /// @param dt - time step
-    /// @param t - time
-    void CalcCoefficients(const TArray y0, const double dt, const double t);
-
-    void UserCheck() {};
-};
-
-
-/// @brief class: Runge-Kutta solver for a single ODE
+/// @brief class: Runge-Kutta solver for a system of ODEs
 class TRungeKuttaSolverSystem : public TBaseRungeKuttaSolver
 {
 private:

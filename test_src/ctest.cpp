@@ -39,8 +39,6 @@ void CTest::SetIC()
 
 void CTest::Solve()
 {
-	//auto an_sol = y0;
-
 	solutionFound = true;
 	savePeriod = 1; // to set params!
 	OpenResultsFile(); // to prepare!

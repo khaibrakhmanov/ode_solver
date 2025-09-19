@@ -20,16 +20,6 @@ double TBasicODE::GetParameter(const std::string name) const
     return paramsDict.at(name);
 }
 
-TSingleODE::TSingleODE()
-{
-    ic = 0.0;
-}
-
-TSingleODE::~TSingleODE()
-{
-
-}
-
 TODEs::TODEs()
 {
 }
