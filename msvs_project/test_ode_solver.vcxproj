@@ -130,6 +130,7 @@
     <ClCompile Include="..\test_src\ode.cpp" />
     <ClCompile Include="..\test_src\solver.cpp" />
     <ClCompile Include="..\test_src\test1.cpp" />
+    <ClCompile Include="..\test_src\test2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\ode_solver.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="..\test_src\ode.h" />
     <ClInclude Include="..\test_src\solver.h" />
     <ClInclude Include="..\test_src\test1.h" />
+    <ClInclude Include="..\test_src\test2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

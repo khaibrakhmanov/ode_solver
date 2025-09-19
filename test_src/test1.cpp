@@ -1,13 +1,18 @@
 #include "test1.h"
 #include "ctest.h"
 
-double dydt(double t, std::vector<double> y);
-double exact_sol(double t);
-double f0 = 1.0;
-double alpha = 1.0;
+namespace test1
+{
+	double dydt(double t, std::vector<double> y);
+	double exact_sol(double t);
+	double f0 = 1.0;
+	double alpha = 1.0;
+}
 
 void CTest1::SetEqs()
 {
+	using namespace test1;
+
 	eqs_number = 1;
 
 	PFunctionVectArg rhs = dydt;
@@ -19,6 +24,8 @@ void CTest1::SetEqs()
 
 void CTest1::SetParams()
 {
+	using namespace test1;
+
 	// equation params
 
 	alpha = 1.0;
@@ -35,12 +42,12 @@ void CTest1::SetParams()
 	t_stop = 100.0;
 }
 
-double dydt(double t, std::vector<double> y)
+double test1::dydt(double t, std::vector<double> y)
 {
 	return -alpha * y[0];
 };
 
-double exact_sol(double t)
+double test1::exact_sol(double t)
 {
 	return exp(-alpha * t);
 };
