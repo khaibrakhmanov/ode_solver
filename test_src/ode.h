@@ -37,23 +37,42 @@ typedef double (*PFunctionVectArg)(double, std::vector<double>);
 typedef std::vector<PFunctionVectArg> TVectorFunctionVectArg;
 
 /// @brief class: system of ODEs
+/// The system has a following form:
+///   dy/dt = rhs,
+/// where 
+///   y   = {y0, y1, y2, ...} - vector of unknown functions (solution of the system)
+///   rhs = {f0, f1, f2, ...} - vector-function of the derivatives in the system (a.k.a. Right-Hand-Side)
+/// The system is closed by a vecot of initial conditions:
+///   ic  = {ic0, ic1. ...}
 class TODEs : public TBasicODE
 {
 protected:
-
+    /// @brief vector of inital conditions
     std::vector<double> ic;
+    /// @brief vector of "right-hand-side" functions (derivatives in the system)
     TVectorFunctionVectArg rhs;
+    /// @brief vector-function of the exact solution of the system
     TVectorFunction solution;
 
 public:
     TODEs(/* args */);
     ~TODEs();
 
+    /// @brief Add RHS (derivative) to a vector of system equations
+    /// @param fun function to be added
     void AddRHS(const PFunctionVectArg fun);
+    /// @brief Add exact solution to a vector of solutions
+    /// @param sol function to be added
     void AddSolution(const PFunction sol);
+    /// @brief Add a value of the initial condition to a vector of initial conditions
+    /// @param val initial condition to be added
     void AddIC(const double val);
 
+    /// @brief Get pointer to a vector-function of the system equations
+    /// @return *rhs
     TVectorFunctionVectArg* GetRHSPtr();
+    /// @brief Get pointer to a vector of functions of the exact solutions
+    /// @return *solution
     TVectorFunction* GetSolution();
 
 };
