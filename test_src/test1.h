@@ -10,6 +10,4 @@ public:
 protected:
 	void SetEqs();
 	void SetParams();
-	//void Allocate();
-	//void Prepare();
 };

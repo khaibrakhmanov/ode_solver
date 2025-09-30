@@ -20,6 +20,8 @@ void CTest::Allocate()
 
 void CTest::Prepare()
 {
+	/// --- configure solver ---
+
 	solver.ActivateStepSizeControl();
 	solver.SetVariablesNumber(eqs_number);
 	solver.SetOrder(4);
@@ -27,6 +29,8 @@ void CTest::Prepare()
 	solver.SetMaxStep(dt_max);
 	solver.SetMinStep(dt_min);
 	solver.ImportODEs(&ode);
+
+	/// ------------------------
 }
 
 void CTest::SetIC()
@@ -94,7 +98,6 @@ void CTest::SaveResults()
 	out_file << t;
 	for (size_t i_sol = 0; i_sol < eqs_number; i_sol++)
 	{
-		//out_file << sol.at(i_sol) << " ";
 		out_file << " ";
 		out_file << sol.at(i_sol) << " " << solver.GetTimeStep() << " " << solver.GetError(i_sol) << " " << solver.GetIterationsNumber();
 	}

@@ -26,14 +26,14 @@ public:
     double GetParameter(const std::string name) const;
 };
 
-/// @brief Pointer to a function of one real argument
+/// @brief Type: pointer to a function of one real argument
 typedef double (*PFunction)(double);
 /// @brief vector of pointers to functions each depending on one real argument
 typedef std::vector<PFunction> TVectorFunction;
 
-/// @brief Pointer to a function of one real and one vector arguments
+/// @brief Type: pointer to a function of one real and one vector arguments
 typedef double (*PFunctionVectArg)(double, std::vector<double>);
-/// @brief vector of pointers to functions each depending on real and one vector arguments
+/// @brief Type: vector of pointers to functions each depending on real and one vector arguments
 typedef std::vector<PFunctionVectArg> TVectorFunctionVectArg;
 
 /// @brief class: system of ODEs
