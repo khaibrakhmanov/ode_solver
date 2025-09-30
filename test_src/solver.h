@@ -1,6 +1,6 @@
 #pragma once
 #include "../lib/ode_solver.h"
-#include "ode.h"
+#include "../lib/ode.h"
 
 /// @brief class: Runge-Kutta solver for a system of ODEs
 class TRungeKuttaSolverSystem : public TBaseRungeKuttaSolver
