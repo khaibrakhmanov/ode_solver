@@ -1,3 +1,4 @@
+#pragma once
 #include "ode_solver.h"
 
 class TBasicRungeKuttaSolver : public TBaseODESolver
