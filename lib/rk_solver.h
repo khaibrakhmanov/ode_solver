@@ -68,41 +68,6 @@ public:
 	void SetOrder(const std::size_t o);
 };
 
-// class TBaseRungeKuttaSolver : public TBasicRungeKuttaSolver
-// {
-// public:
-// 	TBaseRungeKuttaSolver();
-
-// 	virtual void CalcCoefficients(const TArray y0, const double _dt, const double _time) = 0;
-
-// 	void Step(); //with h
-// 	void Step2();// with h/2 + h/2
-// };
-
-// /// @brief class: Runge-Kutta solver for a system of ODEs
-// class TRungeKuttaSolverSystem : public TBaseRungeKuttaSolver
-// {
-// private:
-//     /// @brief ODEs to be solved (to be initialised)
-//     TODEs* odes;
-
-// public:
-//     TRungeKuttaSolverSystem(/* args */);
-//     ~TRungeKuttaSolverSystem();
-
-//     /// @brief Import initialised ODE into the solver
-//     /// @param ode - single ODE to be solved
-//     void ImportODEs(TODEs* ode);
-
-//     /// @brief Calculate the RK-coefficients
-//     /// @param y0 - vector of the inital values of the independent varable
-//     /// @param dt - time step
-//     /// @param t - time
-//     void CalcCoefficients(const TArray y0, const double dt, const double t);
-
-//     void UserCheck() {};
-// };
-
 class TBaseRungeKuttaFehlberg45Solver : public TRungeKuttaSolver
 {
 protected:
