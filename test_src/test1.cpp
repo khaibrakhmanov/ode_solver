@@ -1,5 +1,6 @@
 #include "test1.h"
 #include "ctest.h"
+#include <cmath>
 
 namespace test1
 {

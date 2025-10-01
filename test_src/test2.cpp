@@ -1,6 +1,6 @@
 #include "test2.h"
 #include "ctest.h"
-
+#include <cmath>
 namespace test2
 {
 	double dydt_1(double t, std::vector<double> y);
