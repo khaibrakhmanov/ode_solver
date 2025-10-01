@@ -1,5 +1,5 @@
 #pragma once
-#include "../lib/ode_solver.h"
+#include "../lib/rk_solver.h"
 #include "../lib/ode.h"
 
 /// @brief class: Runge-Kutta solver for a system of ODEs
