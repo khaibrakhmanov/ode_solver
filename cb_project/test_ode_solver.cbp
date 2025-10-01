@@ -32,15 +32,29 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="../lib/ode.cpp" />
+		<Unit filename="../lib/ode.h" />
 		<Unit filename="../lib/ode_solver.cpp" />
 		<Unit filename="../lib/ode_solver.h" />
-		<Unit filename="../test_src/eqs.cpp" />
-		<Unit filename="../test_src/eqs.h" />
+		<Unit filename="../lib/rk_solver.cpp" />
+		<Unit filename="../lib/rk_solver.h" />
+		<Unit filename="../lib/utypes.cpp" />
+		<Unit filename="../lib/utypes.h" />
+		<Unit filename="../test_src/ctest.cpp" />
+		<Unit filename="../test_src/ctest.h" />
 		<Unit filename="../test_src/main.cpp" />
-		<Unit filename="../test_src/ode.cpp" />
-		<Unit filename="../test_src/ode.h" />
 		<Unit filename="../test_src/solver.cpp" />
 		<Unit filename="../test_src/solver.h" />
+		<Unit filename="../test_src/test1.cpp" />
+		<Unit filename="../test_src/test1.h" />
+		<Unit filename="../test_src/test2.cpp" />
+		<Unit filename="../test_src/test2.h" />
+		<Unit filename="../test_src/test3.cpp" />
+		<Unit filename="../test_src/test3.h" />
+		<Unit filename="../test_src/test4.cpp" />
+		<Unit filename="../test_src/test4.h" />
+		<Unit filename="../test_src/test5.cpp" />
+		<Unit filename="../test_src/test5.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
