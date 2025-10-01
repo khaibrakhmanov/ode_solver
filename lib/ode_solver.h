@@ -84,6 +84,12 @@ protected:
 	/// @brief Adjuct the solution if the Richardson extrapolation is used
 	void AdjustSolution();
 
+	/// @brief Make one step of integration with the current value of time step (dt)
+	virtual void Step() = 0;
+
+	/// @brief Make one step of integration using two substeps (dt = 0.5dt + 0.5dt)
+	virtual void Step2() = 0;
+	
 public:
 	TBaseODESolver();
 
@@ -104,12 +110,6 @@ public:
 
 	/// @brief Allocate internal memory for coefficients of the scheme
 	virtual void AllocateCoefficients() = 0;
-
-	/// @brief Make one step of integration with the current value of time step (dt)
-	virtual void Step() = 0;
-
-	/// @brief Make one step of integration using two substeps (dt = 0.5dt + 0.5dt)
-	virtual void Step2() = 0;
 
 	/// @brief Activate Richardson extrapolation
 	void ActivateRichardsonExtrapolation();

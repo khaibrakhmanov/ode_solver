@@ -47,8 +47,6 @@
 		<Unit filename="../test_src/ctest.cpp" />
 		<Unit filename="../test_src/ctest.h" />
 		<Unit filename="../test_src/main.cpp" />
-		<Unit filename="../test_src/solver.cpp" />
-		<Unit filename="../test_src/solver.h" />
 		<Unit filename="../test_src/test1.cpp" />
 		<Unit filename="../test_src/test1.h" />
 		<Unit filename="../test_src/test2.cpp" />

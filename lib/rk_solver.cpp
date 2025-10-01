@@ -1,41 +1,78 @@
 #include "rk_solver.h"
 
-TBasicRungeKuttaSolver::TBasicRungeKuttaSolver()
+TRungeKuttaSolver::TRungeKuttaSolver()
 {
 	richardsonExtrapolation.TurnOff();
 }
 
-double TBasicRungeKuttaSolver::GetC(const size_t i, const size_t j)
+void TRungeKuttaSolver::ImportODEs(TODEs *ode)
+{
+	this->odes = ode;
+}
+
+void TRungeKuttaSolver::CalcCoefficients(const TArray y0, const double dt, const double t)
+{
+	    TArray2D* coeffs = GetCoefficientsPtr();
+
+    auto N = y0.size();
+    auto rhs = odes->GetRHSPtr();
+
+    y1.clear();
+    for (size_t i = 0; i < N; i++)
+    {
+        (*coeffs)[0][i] = rhs->at(i)(t, y0);
+        y1.push_back(y0[i] + 0.5 * dt * GetC(0, i));
+    }
+
+    y2.clear();
+    for (size_t i = 0; i < N; i++)
+    {
+        (*coeffs)[1][i] = rhs->at(i)(t + 0.5 * dt, y1);
+        y2.push_back(y0[i] + 0.5 * dt * GetC(1, i));
+    }
+
+    y3.clear();
+    for (size_t i = 0; i < N; i++)
+    {
+        (*coeffs)[2][i] = rhs->at(i)(t + 0.5 * dt, y2);
+        y3.push_back(y0[i] + dt * GetC(2, i));
+    }
+
+    for (size_t i = 0; i < N; i++)
+        (*coeffs)[3][i] = rhs->at(i)(t + dt, y3);
+}
+
+double TRungeKuttaSolver::GetC(const size_t i, const size_t j)
 {
 	return coeff[i][j];
 };
 
-void TBasicRungeKuttaSolver::SetC(const size_t i, const size_t j, const double arg)
+void TRungeKuttaSolver::SetC(const size_t i, const size_t j, const double arg)
 {
 	coeff[i][j] = arg;
 };
 
-TArray2D* TBasicRungeKuttaSolver::GetCoefficientsPtr()
+TArray2D* TRungeKuttaSolver::GetCoefficientsPtr()
 {
 	return &coeff;
 }
 
-void TBasicRungeKuttaSolver::AllocateCoefficients()
+void TRungeKuttaSolver::AllocateCoefficients()
 {
 	AllocateVector2D(&coeff, GetOrder(), GetVariablesNumber());
 };
 
-size_t TBasicRungeKuttaSolver::GetOrder()
+size_t TRungeKuttaSolver::GetOrder()
 {
 	return order;
 };
 
-void TBasicRungeKuttaSolver::SetOrder(const size_t arg)
+void TRungeKuttaSolver::SetOrder(const size_t arg)
 {
 	order = arg;
 };
 
-void TBasicRungeKuttaSolver::CalcIntemediateVariables(const TArray y0)
+void TRungeKuttaSolver::CalcIntemediateVariables(const TArray y0)
 {
     for(std::size_t i = 0; i < GetVariablesNumber(); i++)
     {
@@ -45,15 +82,9 @@ void TBasicRungeKuttaSolver::CalcIntemediateVariables(const TArray y0)
     }
 }
 
-//------------- Ordinary RK solver----------------------
-TBaseRungeKuttaSolver::TBaseRungeKuttaSolver()
+void TRungeKuttaSolver::Step()
 {
-	SetOrder(4);
-}
-
-void TBaseRungeKuttaSolver::Step()
-{
-	CalcCoefficients(initialVector, GetTimeStep(), GetTime());
+		CalcCoefficients(initialVector, GetTimeStep(), GetTime());
 
 #ifdef PARALLEL_MODE
 #pragma omp parallel num_threads(NUM_THREADS) shared(sol, initialVector)
@@ -70,13 +101,11 @@ void TBaseRungeKuttaSolver::Step()
 		sol[i_sol] = initialVector[i_sol] + GetTimeStep() / 6.0 * (GetC(0, i_sol) + 2.0 * GetC(1, i_sol) + 2.0 * GetC(2, i_sol) + GetC(3, i_sol));
 	};
 #endif
+}
 
-};
-
-void TBaseRungeKuttaSolver::Step2()
+void TRungeKuttaSolver::Step2()
 {
-
-	CalcCoefficients(initialVector, 0.5 * GetTimeStep(), GetTime());
+		CalcCoefficients(initialVector, 0.5 * GetTimeStep(), GetTime());
 
 #ifdef PARALLEL_MODE
 #pragma omp parallel num_threads(NUM_THREADS) shared(solHalf, initialVector)
@@ -111,8 +140,76 @@ void TBaseRungeKuttaSolver::Step2()
 		sol2[i_sol] = solHalf[i_sol] + GetTimeStep() / 12.0 * (GetC(0, i_sol) + 2.0 * GetC(1, i_sol) + 2.0 * GetC(2, i_sol) + GetC(3, i_sol));
 	};
 #endif
+}
 
-};
+//------------- Ordinary RK solver----------------------
+// TBaseRungeKuttaSolver::TBaseRungeKuttaSolver()
+// {
+// 	SetOrder(4);
+// }
+
+// void TBaseRungeKuttaSolver::Step()
+// {
+// 	CalcCoefficients(initialVector, GetTimeStep(), GetTime());
+
+// #ifdef PARALLEL_MODE
+// #pragma omp parallel num_threads(NUM_THREADS) shared(sol, initialVector)
+// 	{
+// #pragma omp for nowait
+// 		for (int i_sol = 0; i_sol < GetVariablesNumber(); i_sol++)
+// 		{
+// 			sol[i_sol] = initialVector[i_sol] + GetTimeStep() / 6.0 * (GetC(0, i_sol) + 2.0 * GetC(1, i_sol) + 2.0 * GetC(2, i_sol) + GetC(3, i_sol));
+// 		};
+// 	};
+// #else
+// 	for (size_t i_sol = 0; i_sol < GetVariablesNumber(); i_sol++)
+// 	{
+// 		sol[i_sol] = initialVector[i_sol] + GetTimeStep() / 6.0 * (GetC(0, i_sol) + 2.0 * GetC(1, i_sol) + 2.0 * GetC(2, i_sol) + GetC(3, i_sol));
+// 	};
+// #endif
+
+// };
+
+// void TBaseRungeKuttaSolver::Step2()
+// {
+
+// 	CalcCoefficients(initialVector, 0.5 * GetTimeStep(), GetTime());
+
+// #ifdef PARALLEL_MODE
+// #pragma omp parallel num_threads(NUM_THREADS) shared(solHalf, initialVector)
+// 	{
+// #pragma omp for nowait
+// 		for (size_t i_sol = 0; i_sol < GetVariablesNumber(); i_sol++)
+// 		{
+// 			solHalf[i_sol] = initialVector[i_sol] + GetTimeStep() / 12.0 * (GetC(0, i_sol) + 2.0 * GetC(1, i_sol) + 2.0 * GetC(2, i_sol) + GetC(3, i_sol));
+// 		};
+// 	};
+// #else
+// 	for (size_t i_sol = 0; i_sol < GetVariablesNumber(); i_sol++)
+// 	{
+// 		solHalf[i_sol] = initialVector[i_sol] + GetTimeStep() / 12.0 * (GetC(0, i_sol) + 2.0 * GetC(1, i_sol) + 2.0 * GetC(2, i_sol) + GetC(3, i_sol));
+// 	};
+// #endif
+
+// 	CalcCoefficients(solHalf, 0.5 * GetTimeStep(), GetTime() + 0.5 * GetTimeStep());
+
+// #ifdef PARALLEL_MODE
+// #pragma omp parallel num_threads(NUM_THREADS) shared(sol2, solHalf)
+// 	{
+// #pragma omp for nowait
+// 		for (size_t i_sol = 0; i_sol < GetVariablesNumber(); i_sol++)
+// 		{
+// 			sol2[i_sol] = solHalf[i_sol] + GetTimeStep() / 12.0 * (GetC(0, i_sol) + 2.0 * GetC(1, i_sol) + 2.0 * GetC(2, i_sol) + GetC(3, i_sol));
+// 		};
+// 	};
+// #else
+// 	for (size_t i_sol = 0; i_sol < GetVariablesNumber(); i_sol++)
+// 	{
+// 		sol2[i_sol] = solHalf[i_sol] + GetTimeStep() / 12.0 * (GetC(0, i_sol) + 2.0 * GetC(1, i_sol) + 2.0 * GetC(2, i_sol) + GetC(3, i_sol));
+// 	};
+// #endif
+
+// };
 
 //-------- Runge-Kutta-Fehlberg 4(5) solver -----------------------
 TBaseRungeKuttaFehlberg45Solver::TBaseRungeKuttaFehlberg45Solver()

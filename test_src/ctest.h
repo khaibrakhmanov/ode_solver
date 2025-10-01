@@ -1,5 +1,5 @@
 #pragma once
-#include "solver.h"
+#include "../lib/rk_solver.h"
 #include <fstream>
 #include <string>
 
@@ -20,7 +20,7 @@ protected:
 	/// @brief System of ODEs to be solved
 	TODEs ode;
 	/// @brief Runge-Kutta solver to solve the system
-	TRungeKuttaSolverSystem solver;
+	TRungeKuttaSolver solver;
 	/// @brief Vector of the solution at a given time step
 	std::vector<double> sol;
 	/// @brief Vector of initial conditions
