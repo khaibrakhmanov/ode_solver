@@ -32,6 +32,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="../lib/euler_solver.cpp" />
+		<Unit filename="../lib/euler_solver.h" />
+		<Unit filename="../lib/gear_solver.cpp" />
+		<Unit filename="../lib/gear_solver.h" />
 		<Unit filename="../lib/ode.cpp" />
 		<Unit filename="../lib/ode.h" />
 		<Unit filename="../lib/ode_solver.cpp" />
